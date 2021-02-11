@@ -11,21 +11,28 @@ const Employee = require("./lib/Employee");
 function startInquirer() {
     const promptArray = [{
         type:'input',
+        name: 'name',
         message: 'Hello! What is your name?',
-        name: 'name'
+        
     }, {
         type:'input',
-        message: 'What is your ID number?'
-        name: 'id'
+        name: 'id',
+        message: 'What is your ID number?',
+        
+        
     }, {
         type: "input",
+        name: "email",
         message: "What is your email address?",
-        name: "email"
+        
+        
     }, {
         type: "list",
+        name: "title",
         message: "What is your employee title",
         choices: ["Manager", "Engineer", "Intern"],
-        name: "title"
+        
+        
     }];
 
     return inquirer
@@ -34,8 +41,8 @@ function startInquirer() {
 function runInqManager() {
     const promptArray = [{
         type: "input",
+        name: "officeNumber",
         message: "What is your office number?",
-        name: "officeNumber"
     }];
     return inquirer
         .prompt(promptArray);
@@ -43,8 +50,8 @@ function runInqManager() {
 function runInqEngineer() {
     const promptArray = [{
         type: "input",
+        name: "github",
         message: "What is your GitHub username?",
-        name: "github"
     }];
     return inquirer
         .prompt(promptArray);
@@ -52,12 +59,45 @@ function runInqEngineer() {
 function runInqIntern() {
     const promptArray = [{
         type: "input",
-        message: "What school are you currently attening?",
-        name: "school"
+        name: "school",
+        message: "What school are you currently attending?",
     }];
 
     return inquirer
         .prompt(promptArray);
+}
+
+async function run() {
+    let empArray = [];
+    const maxEmpCards = 4;
+    for (i = 0; i < maxEmpCards; i++) {
+        const promise = new Promise((resolve, reject) => {
+            startInquirer()
+                .then(function ({ name, id, email, title }) 
+{
+    if (title === "Manager") {
+        runInqManager().then(function ({ officeNumber }) {
+            this.employee = new Manager(name, id, email, officeNumber, title);
+            console.log(officeNumber);
+            employeeArray.push(employee);
+            resolve("done");
+        });
+
+    } else if (title === "Engineer") {
+        runInqEngineer().then(function ({ github }) {
+            this.employee = new Engineer(name, id, email, github, title);
+            console.log(github);
+            employeeArray.push(employee);
+            resolve("done");
+        });
+    } else if (title === "Intern") {
+        runInqIntern().then(function ({ school }) {
+            this.employee = new Intern(name, id, email, school, title);
+            console.log(school);
+            employeeArray.push(employee);
+            resolve("done");
+        });
+    }
 }
 
 
