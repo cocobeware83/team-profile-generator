@@ -1,0 +1,25 @@
+{
+  "name": "team-profile-generator",
+  "version": "1.0.0",
+  "description": "school challenge",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cocobeware83/team-profile-generator.git"
+  },
+  "author": "Cory Neel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cocobeware83/team-profile-generator/issues"
+  },
+  "homepage": "https://github.com/cocobeware83/team-profile-generator#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3"
+  }
+}
