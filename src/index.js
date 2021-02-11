@@ -99,5 +99,30 @@ async function run() {
         });
     }
 }
+}).catch(function (err) {
+    console.log("There was an error.");
+});
+});
 
+const result = await promise;
+console.log(result);
+}
+
+function displayTitle(employee) {
+    if (employee.title === "Manager") {
+        console.log(employee.officeNumber);
+        return `office number: ${employee.officeNumber}`;
+    }
+
+    if (employee.title === "Intern") {
+        return `school: ${employee.school}`;
+    }
+
+    if (employee.title === "Engineer") {
+        return `gitHub: ${employee.github}`;
+    }
+
+}
+
+//set up function to get HTML
 
