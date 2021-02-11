@@ -67,6 +67,7 @@ function runInqIntern() {
         .prompt(promptArray);
 }
 
+//set max cards to 4
 async function run() {
     let empArray = [];
     const maxEmpCards = 4;
