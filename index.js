@@ -127,3 +127,58 @@ function displayTitle(employee) {
 
 //set up function to get HTML
 
+function getHtml() {
+    let html = "";
+    for (j = 0; j < maxEmpCards; j++) {
+        console.log(employeeArray[j])
+        html += `<div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
+            <div class="col card-header">
+                <h4>${employeeArray[j].name}</h4>
+            </div>
+            <div class="col card-header">
+                <h4>${employeeArray[j].title}</h4 >
+            </div >
+            <ul class="list-group list-group-flush text">
+                <li class="list-group-item">ID: ${employeeArray[j].id}</li>
+                <li class="list-group-item">Email: ${employeeArray[j].email}</li>
+                <li class="list-group-item"> ${displayTitle(employeeArray[j])}</li>
+            </ul>
+        </div > `;
+    }
+    return html;
+}
+
+
+//still need to add CSS
+let html = `< !DOCTYPE html >
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            <title>Document</title>
+            <style>
+//insert CSS styling here
+            </style>
+    </head>
+        <body>
+            <nav class="navbar navbar-dark bg-dark justify-content-center align-items-center">
+            <span class="navbar-brand mb-0 h1">
+            <h1>My Team</h1></span>
+            </nav>
+                <div class="row">
+                    ${getCardHtml()}
+                </div>
+        </body>
+    </html>`;
+
+console.log(html);
+const fs = require("fs");
+fs.writeFile('newfile.html', html, function (err) {
+    if (err) throw err;
+    console.log('HTML was created successfully!');
+});
+}
+run()
