@@ -1,6 +1,7 @@
 // Modules for node
 const inquirer = require("inquirer");
 const fs = require("fs");
+const jest = require("jest");
 
 //modules for lib
 const Engineer = require("./lib/Engineer");
