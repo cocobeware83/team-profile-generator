@@ -101,7 +101,7 @@ async function run() {
         });
     }
 }
-}).catch(function (err) {
+).catch(function (err) {
     console.log("There was an error.");
 });
 });
