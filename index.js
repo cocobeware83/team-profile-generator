@@ -169,7 +169,7 @@ let html = `< !DOCTYPE html >
             <h1>My Team</h1></span>
             </nav>
                 <div class="row">
-                    ${getCardHtml()}
+                    ${getHtml()}
                 </div>
         </body>
     </html>`;
