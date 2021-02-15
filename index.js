@@ -89,12 +89,14 @@ function startHtml() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="./dist/style.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous"/>
+        <link rel="stylesheet" href="../dist/style.css">
         <title>Team Profile</title>
 
     <body>
-    <nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Your Team Profile!</span>
+    <nav class="navbar">
+    <span class="navbar-brand mb-0 h1"><h1>Your Team Profile!</h1></span>
   </nav>
   </br>
         <div class="container">
@@ -119,8 +121,8 @@ function addHtml(member) {
         if (role === "Engineer") {
             const gitHub = member.getGithub();
             data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Engineer</h5>
+            <div class="card shadow-lg p-3 bg-white roundedmx-auto mb-3" style="width: 18rem">
+            <h5 class="card-header">${name}<br /><br /><i class="fas fa-glasses"></i> Engineer</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
@@ -131,8 +133,8 @@ function addHtml(member) {
         } else if (role === "Intern") {
             const school = member.getSchool();
             data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Intern</h5>
+            <div class="card shadow-lg p-3 bg-white roundedmx-auto mb-3" style="width: 18rem">
+            <h5 class="card-header">${name}<br /><br /><i class="fas fa-user-graduate"></i> Intern</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
@@ -143,8 +145,8 @@ function addHtml(member) {
         } else {
             const officeNmbr = member.getOfficeNumber();
             data = `<div class="col-6">
-            <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Manager</h5>
+            <div class="card shadow-lg p-3 bg-white roundedmx-auto mb-3" style="width: 18rem">
+            <h5 class="card-header">${name}<br /><br /><i class="fas fa-mug-hot"></i> Manager</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
