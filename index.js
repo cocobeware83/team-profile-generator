@@ -125,8 +125,8 @@ function addHtml(member) {
             <h5 class="card-header">${name}<br /><br /><i class="fas fa-glasses"></i> Engineer</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">GitHub Profile name: ${gitHub}</li>
+                <li class="list-group-item">Email Address: <a href="mailto:${email}">${email}</a></li>
+                <li class="list-group-item">GitHub Profile name: <a href="https://github.com/${gitHub}">${gitHub}</a></li>
             </ul>
             </div>
         </div>`;
@@ -137,7 +137,7 @@ function addHtml(member) {
             <h5 class="card-header">${name}<br /><br /><i class="fas fa-user-graduate"></i> Intern</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
+                <li class="list-group-item">Email Address: <a href="mailto:${email}">${email}</a></li>
                 <li class="list-group-item">School/University attending: ${school}</li>
             </ul>
             </div>
@@ -149,7 +149,7 @@ function addHtml(member) {
             <h5 class="card-header">${name}<br /><br /><i class="fas fa-mug-hot"></i> Manager</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
-                <li class="list-group-item">Email Address: ${email}</li>
+                <li class="list-group-item">Email Address: <a href="mailto:${email}">${email}</a></li>
                 <li class="list-group-item">Office Number: ${officeNmbr}</li>
             </ul>
             </div>
