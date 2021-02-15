@@ -7,179 +7,185 @@ const jest = require("jest");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
-const Employee = require("./lib/Employee");
 
-function startInquirer() {
-    const promptArray = [{
-        type:'input',
-        name: 'name',
-        message: 'Hello! What is your name?',
-        
-    }, {
-        type:'input',
-        name: 'id',
-        message: 'What is your ID number?',
-        
-        
-    }, {
-        type: "input",
-        name: "email",
-        message: "What is your email address?",
-        
-        
-    }, {
+const employees = [];
+
+function addMember() {
+    inquirer.prompt([{
+        message: "Hello! What is this team member's name?",
+        name: "name"
+    },
+    {
         type: "list",
-        name: "title",
-        message: "What is your employee title",
-        choices: ["Manager", "Engineer", "Intern"],
-        
-        
-    }];
-
-    return inquirer
-        .prompt(promptArray);
-}
-function runInqManager() {
-    const promptArray = [{
-        type: "input",
-        name: "officeNumber",
-        message: "What is your office number?",
-    }];
-    return inquirer
-        .prompt(promptArray);
-}
-function runInqEngineer() {
-    const promptArray = [{
-        type: "input",
-        name: "github",
-        message: "What is your GitHub username?",
-    }];
-    return inquirer
-        .prompt(promptArray);
-}
-function runInqIntern() {
-    const promptArray = [{
-        type: "input",
-        name: "school",
-        message: "What school are you currently attending?",
-    }];
-
-    return inquirer
-        .prompt(promptArray);
-}
-
-//set max cards to 4
-async function run() {
-    let empArray = [];
-    const maxEmpCards = 4;
-    for (i = 0; i < maxEmpCards; i++) {
-        const promise = new Promise((resolve, reject) => {
-            startInquirer()
-                .then(function ({ name, id, email, title }) 
-{
-    if (title === "Manager") {
-        runInqManager().then(function ({ officeNumber }) {
-            this.employee = new Manager(name, id, email, officeNumber, title);
-            console.log(officeNumber);
-            employeeArray.push(employee);
-            resolve("done");
+        message: "Please select this team member's role",
+        choices: [
+            "Engineer",
+            "Intern",
+            "Manager"
+        ],
+        name: "role"
+    },
+    {
+        message: "Please enter this team member's ID#",
+        name: "id"
+    },
+    {
+        message: "Enter this team member's email address",
+        name: "email"
+    }])
+    .then(function({name, role, id, email}) {
+        let roleSpecifics = "";
+        if (role === "Engineer") {
+            roleSpecifics = "GitHub username";
+        } else if (role === "Intern") {
+            roleSpecifics = "school or university name";
+        } else {
+            roleSpecifics = "office number";
+        }
+        inquirer.prompt([{
+            message: `Please enter team member's ${roleSpecifics}`,
+            name: "roleSpecifics"
+        },
+        {
+            type: "list",
+            message: "Would you like to add more team members?",
+            choices: [
+                "yes",
+                "no"
+            ],
+            name: "addMember"
+        }])
+        .then(function({roleSpecifics, addMember}) {
+            let newMember;
+            if (role === "Engineer") {
+                newMember = new Engineer(name, id, email, roleSpecifics);
+            } else if (role === "Intern") {
+                newMember = new Intern(name, id, email, roleSpecifics);
+            } else {
+                newMember = new Manager(name, id, email, roleSpecifics);
+            }
+            employees.push(newMember);
+            addHtml(newMember)
+            .then(function() {
+                if (addMember === "yes") {
+                    addMember();
+                } else {
+                    finishHtml();
+                }
+            });
+            
         });
-
-    } else if (title === "Engineer") {
-        runInqEngineer().then(function ({ github }) {
-            this.employee = new Engineer(name, id, email, github, title);
-            console.log(github);
-            employeeArray.push(employee);
-            resolve("done");
-        });
-    } else if (title === "Intern") {
-        runInqIntern().then(function ({ school }) {
-            this.employee = new Intern(name, id, email, school, title);
-            console.log(school);
-            employeeArray.push(employee);
-            resolve("done");
-        });
-    }
-}
-).catch(function (err) {
-    console.log("There was an error.");
-});
-});
-
-const result = await promise;
-console.log(result);
+    });
 }
 
-function displayTitle(employee) {
-    if (employee.title === "Manager") {
-        console.log(employee.officeNumber);
-        return `office number: ${employee.officeNumber}`;
-    }
 
-    if (employee.title === "Intern") {
-        return `school: ${employee.school}`;
-    }
 
-    if (employee.title === "Engineer") {
-        return `gitHub: ${employee.github}`;
-    }
 
-}
+
 
 //set up function to get HTML
-
-function getHtml() {
-    let html = "";
-    for (j = 0; j < maxEmpCards; j++) {
-        console.log(employeeArray[j])
-        html += `<div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
+let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+       //insert styling 
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark justify-content-center align-items-center">
+        <span class="navbar-brand mb-0 h1"><h1>My Team</h1></span>
+    </nav>
+    <div class="row">
+        <div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
             <div class="col card-header">
-                <h4>${employeeArray[j].name}</h4>
+                <h4>Shayla</h4>
             </div>
             <div class="col card-header">
-                <h4>${employeeArray[j].title}</h4 >
-            </div >
+                <h4>Manager</h4>
+            </div>
             <ul class="list-group list-group-flush text">
-                <li class="list-group-item">ID: ${employeeArray[j].id}</li>
-                <li class="list-group-item">Email: ${employeeArray[j].email}</li>
-                <li class="list-group-item"> ${displayTitle(employeeArray[j])}</li>
+                <li class="list-group-item">ID: 1</li>
+                <li class="list-group-item">Email: shayla@gmail.com</li>
+                <li class="list-group-item">Office Number: 1</li>
             </ul>
-        </div > `;
+        </div>
+        <div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
+            <div class="col card-header">
+                <h4>Michelle</h4>
+            </div>
+            <div class="col card-header">
+                <h4>Engineer</h4>
+            </div>
+            <ul class="list-group list-group-flush text">
+                <li class="list-group-item">ID: 2</li>
+                <li class="list-group-item">Email: michelle@gmail.com</li>
+                <li class="list-group-item">GitHub: owodu001</li>
+            </ul>
+        </div>
+        <div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
+            <div class="col card-header">
+                <h4>Andrew</h4>
+            </div>
+            <div class="col card-header">
+                <h4>Intern</h4>
+            </div>
+            <ul class="list-group list-group-flush text">
+                <li class="list-group-item">ID: 3</li>
+                <li class="list-group-item">Email: andrew@gmail.com</li>
+                <li class="list-group-item">School: UofM</li>
+            </ul>
+        </div>
+        <div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
+            <div class="col card-header">
+                <h4>Chelle</h4>
+            </div>
+            <div class="col card-header">
+                <h4>Intern</h4>
+            </div>
+            <ul class="list-group list-group-flush text">
+                <li class="list-group-item">ID: 4</li>
+                <li class="list-group-item">Email: chelle@gmail.com</li>
+                <li class="list-group-item">School: UofM</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>`
+
+    for (let i in employeeArray) {
+        employee = employeeArray[i];
+        let cardInfo = {
+            name: employee.getName(),
+            role: employee.getRole(),
+            id: employee.getId(),
+            email: employee.getEmail()
+        }
+
+        if (employee.getRole() == "Engineer") {
+            cardInfo.github = employee.getGithub();
+        } else if (employee.getRole() == "Manager") {
+            cardInfo.officeNumber = employee.getOfficeNumber();
+        } else if (employee.getRole() == "Intern") {
+            cardInfo.school = employee.getSchool();
+        }
+
+        html += getCardHtml(cardInfo);
     }
-    return html;
-}
-
-
-//still need to add CSS
-let html = `< !DOCTYPE html >
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-            <title>Document</title>
-            <style>
-//insert CSS styling here
-            </style>
-    </head>
-        <body>
-            <nav class="navbar navbar-dark bg-dark justify-content-center align-items-center">
-            <span class="navbar-brand mb-0 h1">
-            <h1>My Team</h1></span>
-            </nav>
-                <div class="row">
-                    ${getHtml()}
-                </div>
-        </body>
-    </html>`;
-
-console.log(html);
-const fs = require("fs");
-fs.writeFile('newfile.html', html, function (err) {
-    if (err) throw err;
-    console.log('HTML was created successfully!');
-});
+    // console.log(html);
+    const fs = require("fs");
+    fs.writeFile('newfile.html', html, function(err) {
+        if (err) throw err;
+        console.log('File is created successfully.');
+    });
 }
 run()
+
+function getCardHtml(cardInfo) {
+    let html = "<div>";
+    return html;
+}
