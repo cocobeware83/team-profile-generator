@@ -61,7 +61,7 @@ test("Should set email", () => {
 });
 
 test("Should obtain employee name using getName", () => {
-    const testValue = "Cory Neel";
+    const testRole = "Cory Neel";
     const e = new Employee(testRole);
     expect(e.getName()).toBe(testRole);
 });
