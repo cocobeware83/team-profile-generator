@@ -89,12 +89,14 @@ function startHtml() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="./dist/style.css">
         <title>Team Profile</title>
-    </head>
+
     <body>
-        <nav class="navbar navbar-dark bg-red mb-5 text-is-white">
-            <span class="navbar-brand mb-0 h1 w-100 text-center">Team Profile</span>
-        </nav>
+    <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Your Team Profile!</span>
+  </nav>
+  </br>
         <div class="container">
             <div class="row">`;
     fs.writeFile("./dist/work-crew.html", html, function(err) {
@@ -106,6 +108,8 @@ function startHtml() {
 }
 
 function addHtml(member) {
+   
+    
     return new Promise(function(resolve, reject) {
         const name = member.getName();
         const role = member.getRole();
@@ -119,7 +123,7 @@ function addHtml(member) {
             <h5 class="card-header">${name}<br /><br />Engineer</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
-                <li class="list-group-item">Email Address: <a href= "mailto:${email}"></a></li>
+                <li class="list-group-item">Email Address: ${email}</li>
                 <li class="list-group-item">GitHub Profile name: ${gitHub}</li>
             </ul>
             </div>
@@ -131,7 +135,7 @@ function addHtml(member) {
             <h5 class="card-header">${name}<br /><br />Intern</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
-                <li class="list-group-item">Email Address: <a href= "mailto:${email}"></a></li>
+                <li class="list-group-item">Email Address: ${email}</li>
                 <li class="list-group-item">School/University attending: ${school}</li>
             </ul>
             </div>
@@ -143,7 +147,7 @@ function addHtml(member) {
             <h5 class="card-header">${name}<br /><br />Manager</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID#: ${id}</li>
-                <li class="list-group-item">Email Address: <a href= "mailto:${email}"></a></li>
+                <li class="list-group-item">Email Address: ${email}</li>
                 <li class="list-group-item">Office Number: ${officeNmbr}</li>
             </ul>
             </div>
