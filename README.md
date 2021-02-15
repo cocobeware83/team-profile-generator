@@ -5,7 +5,7 @@
 ![badge](https://img.shields.io/badge/USES-node.js-blue.svg)
 ![badge](https://img.shields.io/badge/Created_With-LOVE-pink.svg)
 
-![Screenshot (30)](https://user-images.githubusercontent.com/72768374/107907008-2c6a6300-6f18-11eb-89f2-6713c35ac1c6.png)
+![portfolio-gen](https://user-images.githubusercontent.com/72768374/107910617-63447700-6f20-11eb-98c1-2a0b616c58e4.gif)
 
 ## Table of Contents
   * [Description](#description)
