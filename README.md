@@ -40,7 +40,7 @@
   ## Questions?
   Cory Neel - Contact info provided below
   <br/>
-  You can Email me at: corycneel@gmail.com
+  You can Email me at: [corycneel@gmail.com](mailto:corycneel@gmail.com)
   <br/>
   You can contact me on Github at: [cocobeware83](https://github.com/cocobeware83)
 
