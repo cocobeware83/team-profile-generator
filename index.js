@@ -10,7 +10,7 @@ const Manager = require("./lib/Manager");
 
 const employees = [];
 
-function addMember() {
+function init() {
     inquirer.prompt([{
         message: "Hello! What is this team member's name?",
         name: "name"
@@ -40,7 +40,7 @@ function addMember() {
         } else if (role === "Intern") {
             roleSpecifics = "school or university name";
         } else {
-            roleSpecifics = "office number";
+            roleSpecifics = "officenumber";
         }
         inquirer.prompt([{
             message: `Please enter team member's ${roleSpecifics}`,
@@ -78,114 +78,98 @@ function addMember() {
     });
 }
 
-
-
-
-
-
 //set up function to get HTML
-let html = `<!DOCTYPE html>
+function startHtml() {
+    const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Document</title>
-    <style>
-       //insert styling 
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Team Profile</title>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark justify-content-center align-items-center">
         <span class="navbar-brand mb-0 h1"><h1>My Team</h1></span>
     </nav>
-    <div class="row">
-        <div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
-            <div class="col card-header">
-                <h4>Shayla</h4>
-            </div>
-            <div class="col card-header">
-                <h4>Manager</h4>
-            </div>
-            <ul class="list-group list-group-flush text">
-                <li class="list-group-item">ID: 1</li>
-                <li class="list-group-item">Email: shayla@gmail.com</li>
-                <li class="list-group-item">Office Number: 1</li>
-            </ul>
-        </div>
-        <div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
-            <div class="col card-header">
-                <h4>Michelle</h4>
-            </div>
-            <div class="col card-header">
-                <h4>Engineer</h4>
-            </div>
-            <ul class="list-group list-group-flush text">
-                <li class="list-group-item">ID: 2</li>
-                <li class="list-group-item">Email: michelle@gmail.com</li>
-                <li class="list-group-item">GitHub: owodu001</li>
-            </ul>
-        </div>
-        <div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
-            <div class="col card-header">
-                <h4>Andrew</h4>
-            </div>
-            <div class="col card-header">
-                <h4>Intern</h4>
-            </div>
-            <ul class="list-group list-group-flush text">
-                <li class="list-group-item">ID: 3</li>
-                <li class="list-group-item">Email: andrew@gmail.com</li>
-                <li class="list-group-item">School: UofM</li>
-            </ul>
-        </div>
-        <div class="card bg-dark justify-content-center align-items-center" style="width: 18rem;">
-            <div class="col card-header">
-                <h4>Chelle</h4>
-            </div>
-            <div class="col card-header">
-                <h4>Intern</h4>
-            </div>
-            <ul class="list-group list-group-flush text">
-                <li class="list-group-item">ID: 4</li>
-                <li class="list-group-item">Email: chelle@gmail.com</li>
-                <li class="list-group-item">School: UofM</li>
-            </ul>
-        </div>
+    <div class="container">
+    <div class="row">`;
+fs.writeFile("./dist/work-crew.html", html, function(err) {
+if (err) {
+    console.log(error);
+}
+});
+console.log("begin");
+}
+
+function addHtml(member) {
+return new Promise(function(resolve, reject) {
+const name = member.getName();
+const role = member.getRole();
+const id = member.getId();
+const email = member.getEmail();
+let data = "";
+if (role === "Engineer") {
+    const gitHub = member.getGithub();
+    data = `<div class="col-6">
+    <div class="card mx-auto mb-3" style="width: 18rem">
+    <h5 class="card-header">${name}<br /><br />Engineer</h5>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${id}</li>
+        <li class="list-group-item">Email Address: ${email}</li>
+        <li class="list-group-item">GitHub: ${gitHub}</li>
+    </ul>
     </div>
+</div>`;
+} else if (role === "Intern") {
+    const school = member.getSchool();
+    data = `<div class="col-6">
+    <div class="card mx-auto mb-3" style="width: 18rem">
+    <h5 class="card-header">${name}<br /><br />Intern</h5>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${id}</li>
+        <li class="list-group-item">Email Address: ${email}</li>
+        <li class="list-group-item">School: ${school}</li>
+    </ul>
+    </div>
+</div>`;
+} else {
+    const officePhone = member.getOfficeNumber();
+    data = `<div class="col-6">
+    <div class="card mx-auto mb-3" style="width: 18rem">
+    <h5 class="card-header">${name}<br /><br />Manager</h5>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${id}</li>
+        <li class="list-group-item">Email Address: ${email}</li>
+        <li class="list-group-item">Office Number: ${officenumber}</li>
+    </ul>
+    </div>
+</div>`
+}
+fs.appendFile("./dist/work-crew.html", data, function (err) {
+    if (err) {
+        return reject(err);
+    };
+    return resolve();
+});
+});
+
+}
+
+function finishHtml() {
+const html = ` </div>
+</div>
+
 </body>
-</html>`
+</html>`;
 
-    for (let i in employeeArray) {
-        employee = employeeArray[i];
-        let cardInfo = {
-            name: employee.getName(),
-            role: employee.getRole(),
-            id: employee.getId(),
-            email: employee.getEmail()
-        }
-
-        if (employee.getRole() == "Engineer") {
-            cardInfo.github = employee.getGithub();
-        } else if (employee.getRole() == "Manager") {
-            cardInfo.officeNumber = employee.getOfficeNumber();
-        } else if (employee.getRole() == "Intern") {
-            cardInfo.school = employee.getSchool();
-        }
-
-        html += getCardHtml(cardInfo);
-    }
-    // console.log(html);
-    const fs = require("fs");
-    fs.writeFile('newfile.html', html, function(err) {
-        if (err) throw err;
-        console.log('File is created successfully.');
-    });
+fs.appendFile("./dist/work-crew.html", html, function (err) {
+if (err) {
+    console.log(error);
+};
+});
 }
-run()
+init();
 
-function getCardHtml(cardInfo) {
-    let html = "<div>";
-    return html;
-}
+    
